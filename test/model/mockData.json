@@ -1,0 +1,76 @@
+{
+  "items": [
+    {
+      "nfId": "1234567890",
+      "numItem": "000001",
+      "vlOprSaida": "12345678.45",
+      "vlrOprEntrada": "12345678.45",
+      "vlItem": "1000.00",
+      "vlMerc": "1000.00",
+      "vlTotalDocumento": "12345678.90",
+      "base": "10000.00",
+      "outrosBase": "500.00",
+      "baseExcluida": "200.00"
+    },
+    {
+      "nfId": "1002345673",
+      "numItem": "000002",
+      "vlOprSaida": "223456.45",
+      "vlrOprEntrada": "223456.45",
+      "vlItem": "2000.00",
+      "vlMerc": "2000.00",
+      "vlTotalDocumento": "22345678.90",
+      "base": "20000.00",
+      "outrosBase": "1500.00",
+      "baseExcluida": "1200.00"
+    },
+    {
+      "nfId": "0987654321",
+      "numItem": "000001",
+      "vlOprSaida": "32345678.45",
+      "vlrOprEntrada": "32345678.45",
+      "vlItem": "3000.00",
+      "vlMerc": "3000.00",
+      "vlTotalDocumento": "32345678.90",
+      "base": "30000.00",
+      "outrosBase": "2500.00",
+      "baseExcluida": "2200.00"
+    },
+    {
+      "nfId": "0987654321",
+      "numItem": "000002",
+      "vlOprSaida": "423456789.45",
+      "vlrOprEntrada": "423456789.45",
+      "vlItem": "4000.00",
+      "vlMerc": "4000.00",
+      "vlTotalDocumento": "42345678.90",
+      "base": "40000.00",
+      "outrosBase": "3500.00",
+      "baseExcluida": "3200.00"
+    },
+    {
+      "nfId": "1111111111",
+      "numItem": "000001",
+      "vlOprSaida": "523456789.45",
+      "vlrOprEntrada": "523456789.45",
+      "vlItem": "5000.00",
+      "vlMerc": "5000.00",
+      "vlTotalDocumento": "52345678.90",
+      "base": "50000.00",
+      "outrosBase": "4500.00",
+      "baseExcluida": "4200.00"
+    },
+    {
+      "nfId": "2222222222",
+      "numItem": "000003",
+      "vlOprSaida": "623456789.45",
+      "vlrOprEntrada": "623456789.45",
+      "vlItem": "6000.00",
+      "vlMerc": "6000.00",
+      "vlTotalDocumento": "62345678.90",
+      "base": "60000.00",
+      "outrosBase": "5500.00",
+      "baseExcluida": "5200.00"
+    }
+  ]
+}

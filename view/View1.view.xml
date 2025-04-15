@@ -1,0 +1,215 @@
+<mvc:View controllerName="nsdecimals.moduledecimals.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:u="sap.ui.unified"
+    xmlns:core="sap.ui.core">
+    <Shell >
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <Panel id="inputPanel" headerText="Configurações" width="auto" class="sapUiResponsiveMargin">
+                <content>
+                    <!-- Container principal - Alterado para não centralizar tudo -->
+                    <VBox width="100%" class="sapUiSmallMargin">
+                        <items>
+                            <!-- Seção de configurações centralizada com componentes alinhados horizontalmente -->
+                            <HBox width="100%" justifyContent="Center" class="sapUiMediumMarginBottom">
+                                <items>
+                                    <FlexBox width="auto" alignItems="Start" justifyContent="SpaceBetween" class="sapUiSmallMarginEnd">
+                                        <items>
+                                            <!-- Campo numérico -->
+                                            <VBox alignItems="Center" class="sapUiMediumMarginEnd">
+                                                <items>
+                                                    <Label text="Ajuste decimal(0,01)" required="true"/>
+                                                    <Input id="numericInput" 
+                                                        value="0,01" 
+                                                        maxLength="4"
+                                                        liveChange=".onValidateNumericInput"
+                                                        width="100px"
+                                                        textAlign="Center"
+                                                        placeholder="0,00"
+                                                        valueStateText="Digite um valor no formato 0,00"/>
+                                                </items>
+                                            </VBox>
+                                            
+                                            <!-- Opções de rádio -->
+                                            <VBox alignItems="Center">
+                                                <items>
+                                                    <Label text="Opções"/>
+                                                    <RadioButtonGroup id="rbgOptions" columns="2" selectedIndex="0">
+                                                        <buttons>
+                                                            <RadioButton id="rbMore" text="a mais"/>
+                                                            <RadioButton id="rbLess" text="a menos"/>
+                                                        </buttons>
+                                                    </RadioButtonGroup>
+                                                </items>
+                                            </VBox>
+                                        </items>
+                                    </FlexBox>
+                                </items>
+                            </HBox>
+                            
+                            <!-- Separador -->
+                            <Bar width="100%" class="sapUiSmallMarginBottom">
+                                <contentMiddle>
+                                    <Title text="Importar Dados" titleStyle="H4"/>
+                                </contentMiddle>
+                            </Bar>
+                            
+                            <!-- Seção de importação de arquivo centralizada -->
+                            <VBox width="100%" alignItems="Center" class="sapUiSmallMarginBottom">
+                                <items>
+                                    <!-- Seletor de arquivo único com botão de ajuda -->
+                                    <HBox width="100%" justifyContent="Center" alignItems="Center" class="sapUiTinyMarginBottom">
+                                        <items>
+                                            <u:FileUploader
+                                                id="fileUploader"
+                                                uploadOnChange="true"
+                                                value="{csvModel>/fileName}"
+                                                tooltip="Selecionar arquivo CSV"
+                                                placeholder="Selecione um arquivo CSV"
+                                                fileType="csv"
+                                                typeMissmatch=".handleTypeMissmatch"
+                                                change=".handleFileSelect"
+                                                buttonText="Selecionar arquivo CSV"
+                                                style="Emphasized"
+                                                width="auto" 
+                                                class="sapUiTinyMarginEnd"/>
+                                            
+                                            <!-- Botão de ajuda -->
+                                            <Button
+                                                id="btnHelp"
+                                                icon="sap-icon://hint"
+                                                tooltip="Ajuda"
+                                                press=".onShowHelp"
+                                                type="Transparent"
+                                                class="sapUiTinyMarginEnd"/>
+                                        </items>
+                                    </HBox>
+                                    
+                                    <!-- Exibe o nome do arquivo selecionado -->
+                                    <Text 
+                                        text="Arquivo: {csvModel>/fileName}" 
+                                        visible="{= ${csvModel>/fileName}.length > 0 }"
+                                        class="sapUiSmallMarginTop"/>
+                                </items>
+                            </VBox>
+                            
+                            <!-- Tabela com os dados importados - seção alinhada à esquerda -->
+                            <VBox width="100%" alignItems="Start" 
+                                  visible="{= ${csvModel>/csvData}.length > 0 }"
+                                  class="sapUiSmallMarginTop">
+                                <items>
+                                    <Title text="Dados importados" titleStyle="H4" class="sapUiSmallMarginBottom"/>
+                                    
+                                    <Table
+                                        id="idCsvDataTable"
+                                        items="{csvModel>/csvData}"
+                                        inset="false"
+                                        fixedLayout="true"
+                                        growing="true"
+                                        growingScrollToLoad="true"
+                                        alternateRowColors="true"
+                                        width="auto">
+                                        <columns>
+                                            <Column width="10rem" hAlign="Begin" minScreenWidth="Tablet">
+                                                <header>
+                                                    <Text text="NF_ID"/>
+                                                </header>
+                                            </Column>
+                                            <Column width="10rem" hAlign="Begin" minScreenWidth="Tablet">
+                                                <header>
+                                                    <Text text="NUM_ITEM"/>
+                                                </header>
+                                            </Column>
+                                            <Column width="10rem" hAlign="Begin" minScreenWidth="Desktop">
+                                                <header>
+                                                    <Text text="VL_OPR_SAIDA"/>
+                                                </header>
+                                            </Column>
+                                            <Column width="10rem" hAlign="Begin" minScreenWidth="Desktop">
+                                                <header>
+                                                    <Text text="VLR_OPR_ENTRADA"/>
+                                                </header>
+                                            </Column>
+                                            <Column width="10rem" hAlign="Begin" minScreenWidth="Desktop">
+                                                <header>
+                                                    <Text text="VL_ITEM"/>
+                                                </header>
+                                            </Column>
+                                            <Column width="10rem" hAlign="Begin" minScreenWidth="Desktop">
+                                                <header>
+                                                    <Text text="VL_MERC"/>
+                                                </header>
+                                            </Column>
+                                            <Column width="15rem" hAlign="Begin" minScreenWidth="Desktop">
+                                                <header>
+                                                    <Text text="VL_TOTAL_DOCUMENTO"/>
+                                                </header>
+                                            </Column>
+                                            <Column width="10rem" hAlign="Begin" minScreenWidth="Desktop">
+                                                <header>
+                                                    <Text text="BASE"/>
+                                                </header>
+                                            </Column>
+                                            <Column width="10rem" hAlign="Begin" minScreenWidth="Desktop">
+                                                <header>
+                                                    <Text text="OUTROS_BASE"/>
+                                                </header>
+                                            </Column>
+                                            <Column width="10rem" hAlign="Begin" minScreenWidth="Desktop">
+                                                <header>
+                                                    <Text text="BASE_EXCLUIDA"/>
+                                                </header>
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <cells>
+                                                    <Text text="{csvModel>nfId}"/>
+                                                    <Text text="{csvModel>numItem}"/>
+                                                    <Text text="{csvModel>vlOprSaida}"/>
+                                                    <Text text="{csvModel>vlrOprEntrada}"/>
+                                                    <Text text="{csvModel>vlItem}"/>
+                                                    <Text text="{csvModel>vlMerc}"/>
+                                                    <Text text="{csvModel>vlTotalDocumento}"/>
+                                                    <Text text="{csvModel>base}"/>
+                                                    <Text text="{csvModel>outrosBase}"/>
+                                                    <Text text="{csvModel>baseExcluida}"/>
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </items>
+                            </VBox>
+                        </items>
+                    </VBox>
+                </content>
+            </Panel>
+        </content>
+        
+        <!-- Rodapé com botões "Processar" e "Salvar" alinhados à direita -->
+        <footer>
+            <Bar>
+                <contentRight>
+                    <Button 
+                        id="btnProcessar" 
+                        text="Processar" 
+                        type="Emphasized" 
+                        press=".onProcessar"
+                        enabled="{= ${csvModel>/csvData}.length > 0 }"/>
+                    <Button 
+                        id="btnSalvar" 
+                        text="Salvar" 
+                        icon="sap-icon://save" 
+                        type="Emphasized" 
+                        press=".onSave"
+                        enabled="{csvModel>/dadosProcessados}"
+                        class="sapUiTinyMarginBegin"/>
+                </contentRight>
+            </Bar>
+        </footer>
+    </Page>
+    </Shell>
+</mvc:View>
